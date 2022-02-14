@@ -10,5 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_13_094735) do
+  create_table "palaces", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "originalID", limit: 36, null: false
+    t.string "name", null: false
+    t.string "created_by", limit: 36, null: false
+    t.string "held_by", limit: 36, null: false
+    t.integer "number_of_embeded_pins", default: 0
+    t.boolean "share", default: false
+    t.integer "saved_count", default: 0
+    t.datetime "shared_at"
+    t.boolean "firstshared", default: false
+    t.datetime "firstshared_at"
+    t.string "group1", default: ""
+    t.string "group2", default: ""
+    t.string "group3", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end

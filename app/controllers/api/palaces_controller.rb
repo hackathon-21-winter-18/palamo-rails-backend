@@ -4,16 +4,16 @@ module Api
 
     def index
       palaces = Palace.order(created_at: :desc)
-      render json: { data: palaces }
+      render json: palaces
     end
 
     def create
       palace = Palace.new(palace_params)
       palace[:held_by] = "fdssf"
       if palace.save!
-        render json: { data: palace }
-      else 
-        render json: { data: palace.errors }
+        render json: palace
+      else
+        render json: palace.errors
       end
     end
 

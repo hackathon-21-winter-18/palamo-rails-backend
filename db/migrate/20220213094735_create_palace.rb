@@ -3,7 +3,7 @@ class CreatePalace < ActiveRecord::Migration[7.0]
     create_table :palaces, id: false do |t|
       t.string :id, limit: 36, null: false, primary_key: true
       t.string :originalID, limit: 36, null: false
-      t.string :name, null: false
+      t.string :name, limit: 30, null: false
       t.string :created_by, limit: 36, null: false
       t.string :held_by, limit: 36, null: false
       t.integer :number_of_embeded_pins, default: 0

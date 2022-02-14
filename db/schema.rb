@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_13_094735) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_14_130359) do
   create_table "palaces", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "originalID", limit: 36, null: false
-    t.string "name", null: false
+    t.string "name", limit: 30, null: false
     t.string "created_by", limit: 36, null: false
     t.string "held_by", limit: 36, null: false
     t.integer "number_of_embeded_pins", default: 0
@@ -27,6 +27,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_13_094735) do
     t.string "group3", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "google_id", limit: 21, null: false
+    t.string "name", limit: 20, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
 end

@@ -18,10 +18,10 @@ down:
 logs:
 	@docker compose logs -f
 
-.PHONY: db-dev
-db-dev:
+.PHONY: db
+db:
 	@docker exec -it rails-mysql bash
 
-.PHONY: app-dev
-app-dev:	
+.PHONY: app
+app:	
 	@docker exec -it rails-api bash

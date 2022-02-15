@@ -1,9 +1,14 @@
 require 'securerandom'
 module Api
   class UsersController < ApplicationController
+    def show
+      user = User.find(session[:user]["id"])
+      render json: user
+    end
+
     def create
-      @user = User.where(google_id: (params[:google_id]))
-      if @user.empty?
+      @user = User.where(google_id: (params[:google_id])).first
+      if @user.nil?
         @user = User.new(user_params)
         @user[:name] = SecureRandom.alphanumeric(10)
         if @user.save!
@@ -26,6 +31,7 @@ module Api
 
       def session_save
         session[:user] = @user
+        session[:user][:id] = @user[:id]
       end
   end
 end

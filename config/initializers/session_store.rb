@@ -3,5 +3,5 @@
 Rails.application.config.middleware.insert_after ActiveRecord::Migration::CheckPending, ActionDispatch::Cookies
 Rails.application.config.middleware.insert_after ActionDispatch::Cookies, ActionDispatch::Session::RedisStore,
   servers: ["redis://#{ENV.fetch("REDIS_HOST") { "redis" }}:6379/0"],
-  expire_after: 5.minutes,
+  expire_after: 14.days,
   key: "_redis_sample_session" 

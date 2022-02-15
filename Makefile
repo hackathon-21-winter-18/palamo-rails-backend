@@ -25,3 +25,7 @@ db:
 .PHONY: app
 app:	
 	@docker exec -it rails-api bash
+
+.PHONY: redis
+redis:
+	@docker exec -it rails-redis bash

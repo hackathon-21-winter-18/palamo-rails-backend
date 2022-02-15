@@ -33,6 +33,14 @@ services:
       - PMA_PASSWORD=password
     ports:
       - 8888:80
+  redis:
+    image: redis:latest
+    container_name: rails-redis
+    ports:
+      - 6379:6379
+    command: "redis-server --appendonly yes"
+    # volumes:
+    #   - ./redis:/data
 # volumes:
 #   mysql_data:
             

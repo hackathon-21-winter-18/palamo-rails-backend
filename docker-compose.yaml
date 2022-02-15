@@ -19,7 +19,7 @@ services:
       # - ./mysql/init:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: rails_docker_mysql_development
+      MYSQL_DATABASE: palamo_rails_backend_development
     cap_add:
       - SYS_NICE
     ports:

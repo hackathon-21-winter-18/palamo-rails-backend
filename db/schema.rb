@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_14_130359) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_15_025130) do
+  create_table "embeded_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "number", null: false
+    t.integer "x", null: false
+    t.integer "y", null: false
+    t.string "word", limit: 15
+    t.string "place", limit: 15
+    t.string "situation", limit: 15
+    t.string "palace_id", limit: 36, null: false
+    t.integer "group_number", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["palace_id"], name: "fk_rails_a46c920936"
+  end
+
   create_table "palaces", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "originalID", limit: 36, null: false
     t.string "name", limit: 30, null: false
@@ -37,4 +51,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_14_130359) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "embeded_pins", "palaces"
 end

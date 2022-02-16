@@ -1,3 +1,4 @@
 class EmbededPin < ApplicationRecord
-  belongs_to :palace, foreign_key: true
+  # foreign_key trueにするとなぜかpinのinsertが実行されない
+  belongs_to :palace
 end

@@ -9,7 +9,6 @@ module Api
 
     def create
       @format = PalaceEmbededPin.new(format_params)
-      puts @format
       @format.save
       render json: @format
     rescue => err
@@ -18,7 +17,15 @@ module Api
 
     private
       def format_params
-        params.permit(:name, :created_by, :group1, :group2, :group3, :number, :x, :y)
+        # 配列は最後にかかないといけないらしい
+        params.permit(
+          :name,
+          :created_by,
+          :group1,
+          :group2,
+          :group3,
+          embeded_pins: [:number, :x, :y]
+        )
       end
   
     # def create

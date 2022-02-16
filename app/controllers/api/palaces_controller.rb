@@ -9,8 +9,8 @@ module Api
 
     def create
       @format = PalaceEmbededPin.new(format_params)
-      @format.save
-      render json: @format
+      palace, pins = @format.save
+      render json: palace
     rescue => err
       render json: err
     end
@@ -24,7 +24,7 @@ module Api
           :group1,
           :group2,
           :group3,
-          embeded_pins: [:number, :x, :y]
+          embeded_pins: [:number, :x, :y, :word, :place, :situation, :group_number]
         )
       end
   

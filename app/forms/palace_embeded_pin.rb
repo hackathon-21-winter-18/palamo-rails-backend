@@ -1,19 +1,34 @@
 class PalaceEmbededPin
+  # validationが便利にできるやつ
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment
-  # なんだっけこれ
-  attr_accessor :name, :created_by, :group1, :group2, :group3, :embeded_pins
+  # インスタンス変数の書き込み、読み込み可能にする
+  attr_accessor :id, :name, :created_by, :group1, :group2, :group3, :embeded_pins
 
+  # self.nameとかをnameと省略できるっぽい
   def save
+    pins = []
     ActiveRecord::Base.transaction do
-      # self.nameとかをnameと省略できるっぽい
-      palace = Palace.create(name: name, created_by: created_by, group1: group1, group2: group2, group3: group3, held_by: "fsafda")
-      pins = []
+      # transactionのスコープ外でpalace_idを返すために@をつけている。
+      @palace = Palace.create(name:, created_by:, group1:, group2:, group3:, held_by: 'fsafda')
+      puts @palace.id
+      # bulk insert
       embeded_pins.each do |embeded_pin|
         # ここでembeded_pinはインスタンスじゃないからシンボルで呼び出す
-        pins << EmbededPin.new(number: embeded_pin[:number], x: embeded_pin[:x], y: embeded_pin[:y], palace_id: palace.id)
+        pins << EmbededPin.new(
+          number: embeded_pin[:number],
+          x: embeded_pin[:x],
+          y: embeded_pin[:y],
+          word: embeded_pin[:word],
+          place: embeded_pin[:place],
+          situation: embeded_pin[:situation],
+          group_number: embeded_pin[:group_number],
+          palace_id: @palace.id
+        )
       end
+      # postgleSqlなら返り値でinsertしたやつとってこれるからそれでとってこないと、自動生成したやつらを返せない
       EmbededPin.import pins
-    end  
+    end
+    return @palace, pins
   end
 end

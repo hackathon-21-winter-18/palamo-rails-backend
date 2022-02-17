@@ -2,16 +2,24 @@ class PalaceEmbededPin
   # validationが便利にできるやつ
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment
-  # インスタンス変数の書き込み、読み込み可能にする
-  attr_accessor :id, :name, :created_by, :group1, :group2, :group3, :embeded_pins
+  # インスタンス変数の書き込み、読み込み可能にする。書かないとnewができない。
+  attr_accessor :id, :name, :created_by, :held_by, :group1, :group2, :group3, :embeded_pins
 
   # self.nameとかをnameと省略できるっぽい
   def save
     pins = []
     ActiveRecord::Base.transaction do
       # transactionのスコープ外でpalace_idを返すために@をつけている。
-      @palace = Palace.create(name:, created_by:, group1:, group2:, group3:, held_by: 'fsafda')
-      puts @palace.id
+      @palace = Palace.create(
+        name:,
+        created_by:,
+        group1:,
+        group2:,
+        group3:,
+        held_by:,
+        number_of_embeded_pins: self.embeded_pins.length
+      )
+
       # bulk insert
       embeded_pins.each do |embeded_pin|
         # ここでembeded_pinはインスタンスじゃないからシンボルで呼び出す
